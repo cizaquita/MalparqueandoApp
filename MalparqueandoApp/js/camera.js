@@ -18,7 +18,7 @@ function onDeviceReady() {
 //
 function onPhotoDataSuccess(imageData) {
   // Descomenta esta linea para ver la imagen codificada en base64
-  // console.log(imageData);
+  console.log(imageData);
 
   // Obtiene el elemento HTML de la imagen
   //
@@ -58,6 +58,7 @@ function onPhotoURISuccess(imageURI) {
 //
 function capturePhoto() {
   // Toma la imagen y la retorna como una string codificada en base64
+  
   navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
 }
 
