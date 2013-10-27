@@ -31,31 +31,9 @@ function onPhotoDataSuccess(imageData) {
   // Muestra la foto capturada
   // Se usan reglas CSS para dimensionar la imagen
   //
-  smallImage.src = "data:image/jpeg;base64," + imageData;
-  alert("data:image/jpeg;base64," + imageData)  
-
-	//This part is for saving the capture photo
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-	
-	function gotFS(fileSystem) {
-		alert("image/" + "ejemplo" + ".jpeg")
-		fileSystem.root.getFile("image/" + "ejemplo" + ".jpeg", {
-			create : true,
-			exclusive : false
-		}, gotFileEntry, fail);
-	}
-	function gotFileEntry(fileEntry) {
-		fileEntry.createWriter(gotFileWriter, fail);
-	}
-	function gotFileWriter(writer) {
-		var data = "data:image/jpeg;base64," + imageData;
-		writer.write(data);
-	
-	}
-	function fail(error) {
-		alert("error")
-		console.log(error.code);
-	}
+  //smallImage.src = "data:image/jpeg;base64," + imageData;
+  smallImage.src = imageData;
+  //alert("data:image/jpeg;base64," + imageData) 
 }
 
 // Llamada cuando la foto se retorna sin problemas
@@ -66,7 +44,7 @@ function onPhotoURISuccess(imageURI) {
 
   // Obtiene el elemento HTML de la imagen
   //
-  var largeImage = document.getElementById('largeImage');
+  var largeImage = document.getElementById('smallImage');
 
   // Revela el elemento de la imagen
   //
@@ -97,7 +75,7 @@ function capturePhotoEdit() {
 //
 function getPhoto(source) {
   // Retorna la ruta del fichero de imagen desde el origen especificado
-  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+  	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
 	destinationType: destinationType.FILE_URI,
 	sourceType: source });
 }
