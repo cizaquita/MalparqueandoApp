@@ -32,6 +32,30 @@ function onPhotoDataSuccess(imageData) {
   // Se usan reglas CSS para dimensionar la imagen
   //
   smallImage.src = "data:image/jpeg;base64," + imageData;
+  alert("data:image/jpeg;base64," + imageData)  
+
+	//This part is for saving the capture photo
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+	
+	function gotFS(fileSystem) {
+		alert("image/" + "ejemplo" + ".jpeg")
+		fileSystem.root.getFile("image/" + "ejemplo" + ".jpeg", {
+			create : true,
+			exclusive : false
+		}, gotFileEntry, fail);
+	}
+	function gotFileEntry(fileEntry) {
+		fileEntry.createWriter(gotFileWriter, fail);
+	}
+	function gotFileWriter(writer) {
+		var data = "data:image/jpeg;base64," + imageData;
+		writer.write(data);
+	
+	}
+	function fail(error) {
+		alert("error")
+		console.log(error.code);
+	}
 }
 
 // Llamada cuando la foto se retorna sin problemas
